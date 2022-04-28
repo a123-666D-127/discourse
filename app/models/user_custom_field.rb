@@ -4,6 +4,8 @@ class UserCustomField < ActiveRecord::Base
   belongs_to :user
 
   scope :searchable, -> { joins("INNER JOIN user_fields ON user_fields.id = REPLACE(user_custom_fields.name, 'user_field_', '')::INTEGER AND user_fields.searchable IS TRUE AND user_custom_fields.name like 'user_field_%'") }
+
+  validates :value, watched_words: true
 end
 
 # == Schema Information
